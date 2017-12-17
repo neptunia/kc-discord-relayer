@@ -19,7 +19,7 @@ What it looks like:
 * Google Chrome
 * Discord
 * KC3Kai
-	- This won't work if you don't use KC3Kai, unless you leave the devtools panel open. This is because it uses devtools functionality that only works when the devtools panel is open. If you use KC3Kai, you already have it open!
+	- This technically doesn't require KC3Kai, but it works best if you use it. This is because it uses devtools functionality that only works when the devtools panel is open. If you use KC3Kai, you already have it open! Otherwise, you'll need to open your devtools panel while playing Kancolle.
 
 ## Features
 
