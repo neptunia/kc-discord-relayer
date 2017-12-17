@@ -7,6 +7,8 @@ Have you ever played Kancolle, then got depressed that Discord only showed a sad
 
 What it looks like:
 
+![node 1-1a](./img/battle.PNG)
+
 ![idle_home](./img/idle.PNG)
 
 ## Features
