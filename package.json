@@ -1,0 +1,16 @@
+{
+  "name": "kc_discord_relayer",
+  "version": "1.0.0",
+  "description": "relay data from kancolle (from extension) to discord",
+  "main": "main.js",
+  "scripts": {
+  	"start":"node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord-rpc": "github:devsnek/discord-rpc",
+    "ws": "^3.3.2"
+  },
+  "author": "neptunia",
+  "license": "ISC"
+}
