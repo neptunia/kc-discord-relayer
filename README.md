@@ -20,7 +20,7 @@ What it looks like:
 
 ## Usage/Installation
 
-1. install nodejs and dependencies
+1. install nodejs and dependencies `npm install`
 2. change chrome to developer mode (chrome://extensions -> developer mode)
 3. Load unpacked extension...
 4. Navigate to this directory and click `extension_part`
@@ -30,4 +30,4 @@ What it looks like:
 
 ## Contact
 
-Feel free to add an issue or something if something broke/is bugged. Also i have no idea if this will work if you use someone else's discord app. I don't actually know if all the stuff works. Also feel free to put requests and stuff.
+Feel free to add an issue or something if something broke/is bugged. Also I have no idea if this will work if you use someone else's discord app. I don't actually know if all the stuff works. Also feel free to put requests and stuff.
