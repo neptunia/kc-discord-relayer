@@ -11,6 +11,15 @@ What it looks like:
 
 ![idle_home](./img/idle.PNG)
 
+## Requirements
+
+* nodejs
+* all its npm requirements
+* Google Chrome
+* Discord
+* KC3Kai
+	- This won't work if you don't use KC3Kai, unless you leave the devtools panel open. This is because it uses devtools functionality that only works when the devtools panel is open. If you use KC3Kai, you already have it open!
+
 ## Features
 
 * What map/node you're playing on (if any)
@@ -29,6 +38,8 @@ What it looks like:
 5. Open terminal/cmd.
 6. In the directory of main.js, run `npm run start`
 7. Hope it works :^)
+
+Note: If you already have Kancolle or KC3Kai open, you may need to restart Kancolle. Make sure you close your devtools panel and reopen it.
 
 ## Contact
 
