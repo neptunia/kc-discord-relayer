@@ -4,6 +4,7 @@ KC to Discord Relayer
 # Rich Presence Integration for Kancolle!
 
 What it looks like:
+
 ![idle_home](./img/idle.PNG)
 
 ## Features
