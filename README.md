@@ -13,6 +13,7 @@ What it looks like:
 
 ## Requirements
 
+* git
 * nodejs
 * all its npm requirements
 * Google Chrome
