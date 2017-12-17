@@ -44,6 +44,16 @@ Note: If you already have Kancolle or KC3Kai open, you may need to restart Kanco
 
 Note 2: I've looked into consolidating the whole program into a single chrome extension, but seems like it isn't possible to communicate with the discord rpc api without IPC (which can't be done in the browser) or websockets (which requires whitelisting of my app).
 
+## Updating
+
+* `git pull`
+* To update the chrome extension, go to `chrome://extensions` and hit "reload extension"
+
+## TODO
+
+* change hover text on the large icon to `<admiral name> (HQ Level <level>)`
+* replace bottom line to something else (maybe composition of current fleet)
+
 ## Contact
 
 Feel free to add an issue or something if something broke/is bugged. Also I have no idea if this will work if you use someone else's discord app. I don't actually know if all the stuff works. Also feel free to put requests and stuff.
