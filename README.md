@@ -1,6 +1,8 @@
 KC to Discord Relayer
 =====================
 
+Have you ever played Kancolle, then got depressed that Discord only showed a sad little question mark next to the game, instead of a glorious Kancolle icon? Fear not - introducing: 
+
 # Rich Presence Integration for Kancolle!
 
 What it looks like:
@@ -14,6 +16,7 @@ What it looks like:
 * HQ level
 * Idle/Active indicator
 * Kancolle icon (very important!)
+* its actually useless tho and hard to use
 
 ## Usage/Installation
 
