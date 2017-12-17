@@ -28,7 +28,8 @@ What it looks like:
 * HQ level
 * Idle/Active indicator
 * Kancolle icon (very important!)
-* its actually useless tho and hard to use
+* its actually useless tho and hard to set up
+	- although once its set up its pretty easy to use just `npm run start`
 
 ## Usage/Installation
 
