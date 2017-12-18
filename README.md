@@ -24,6 +24,7 @@ What it looks like:
 ## Features
 
 * What map/node you're playing on (if any)
+* Rank/Server (you need to check the ranking page though) (I don't know if this works for non-ascii usernames)
 * Whether you're in PVP or not
 * HQ level
 * Idle/Active indicator
@@ -33,7 +34,10 @@ What it looks like:
 
 ## Usage/Installation
 
-1. install nodejs and dependencies `npm install`
+1. install nodejs and dependencies
+	- https://nodejs.org/en/
+	- https://git-scm.com/downloads
+	- then go into `kc-discord-relayer` folder (where `package.json` is) and run `npm install`
 2. change chrome to developer mode (chrome://extensions -> developer mode)
 3. Load unpacked extension...
 4. Navigate to this directory and click `extension_part`
