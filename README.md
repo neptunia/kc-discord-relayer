@@ -24,7 +24,7 @@ What it looks like:
 ## Features
 
 * What map/node you're playing on (if any)
-* Rank/Server (you need to check the ranking page though) (I don't know if this works for non-ascii usernames)
+* Rank/Server (you need to check the ranking page though) (Currently either does not work on non-english locales or there is some other spooky bug causing issues)
 * Whether you're in PVP or not
 * HQ level
 * Idle/Active indicator
@@ -34,16 +34,17 @@ What it looks like:
 
 ## Usage/Installation
 
-1. install nodejs and dependencies
+1. Either download this repository as zip or git clone it (you'll need to install git either way)
+2. install nodejs, git, and dependencies
 	- https://nodejs.org/en/
 	- https://git-scm.com/downloads
 	- then go into `kc-discord-relayer` folder (where `package.json` is) and run `npm install`
-2. change chrome to developer mode (chrome://extensions -> developer mode)
-3. Load unpacked extension...
-4. Navigate to this directory and click `extension_part`
-5. Open terminal/cmd.
-6. In the directory of main.js, run `npm run start`
-7. Hope it works :^)
+3. change chrome to developer mode (chrome://extensions -> developer mode)
+4. Load unpacked extension...
+5. Navigate to this directory and click `extension_part`
+6. Open terminal/cmd.
+7. In the directory of main.js, run `npm run start`
+8. Hope it works :^)
 
 Note: If you already have Kancolle or KC3Kai open, you may need to restart Kancolle. Make sure you close your devtools panel and reopen it.
 
@@ -56,9 +57,18 @@ Note 2: I've looked into consolidating the whole program into a single chrome ex
 
 ## TODO
 
-* change hover text on the large icon to `<admiral name> (HQ Level <level>)`
-* replace bottom line to something else (maybe composition of current fleet)
+* change hover text on the large icon to `<admiral name> (HQ Level <level>)` DONE
+* replace bottom line to something else (maybe composition of current fleet) DONE
+
+## Bugs
+
+* If you're using non-english locale retrieving rank may not work (due to \ being interpreted as they yen symbol I believe). plan to fix this soon (tm).
 
 ## Contact
 
 Feel free to add an issue or something if something broke/is bugged. Also I have no idea if this will work if you use someone else's discord app. I don't actually know if all the stuff works. Also feel free to put requests and stuff.
+
+## thanks
+
+* Abukuмæме#8716 for finding bug :^)
+* kcdiscord for moral support :)
