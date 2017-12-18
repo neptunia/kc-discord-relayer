@@ -1706,7 +1706,7 @@ function send_battle_data(x) {
 		// send
 		ws_send("Node "+world+"-"+map+" "+nodename,"none","none","none");
 	} catch (e) {
-		alert(e);
+		console.log(e);
 	}
 }
 
@@ -1721,7 +1721,8 @@ function get_rank_data(x) {
 		//alert("Rank "+server_rank+" on "+server);
 		ws_send("none","Rank "+server_rank+" on "+server.split(" ")[0],"none","none");
 	} catch (e) {
-		alert(e);
+		console.log(e);
+		ws_send("none",server,"none","none");
 	}
 }
 

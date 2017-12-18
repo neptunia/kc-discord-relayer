@@ -7,6 +7,10 @@ Have you ever played Kancolle, then got depressed that Discord only showed a sad
 
 What it looks like:
 
+![new with rank](./img/with_rank.PNG)
+
+### Old versions
+
 ![node 1-1a](./img/battle.PNG)
 
 ![idle_home](./img/idle.PNG)
