@@ -1,4 +1,4 @@
-var node_data = {
+const node_data = {
 	"World 1-1" : {
 		"1" : [ "Start", "A"],
 		"2" : [ "A", "B"],
@@ -1588,7 +1588,113 @@ var node_data = {
 		"49": ["ZZ2", "ZZ3"],
 		"50": ["Z9", "ZZ1"]
 	}
-}
+};
+
+const rank_data = ["geydog", "Marshal Admiral", "Admiral", "Vice-Admiral", "Rear-Admiral", "Captain", "Commander", "Commander (Novice)", "Lieutenant-Commander", "Vice Lieutenant-Commander", "Lieutenant-Commander (Novice)"];
+const servers = {
+	"203.104.209.71": {
+		"num": 1,
+		"name": "Yokosuka Naval District",
+		"ip": "203.104.209.71"
+	},
+	"125.6.184.15": {
+		"num": 2,
+		"name": "Kure Naval District",
+		"ip": "125.6.184.15"
+	},
+	"125.6.184.16": {
+		"num": 3,
+		"name": "Sasebo Naval District",
+		"ip": "125.6.184.16"
+	},
+	"125.6.187.205": {
+		"num": 4,
+		"name": "Maizuru Naval District",
+		"ip": "125.6.187.205"
+	},
+	"125.6.187.229": {
+		"num": 5,
+		"name": "Ominato Guard District",
+		"ip": "125.6.187.229"
+	},
+	"125.6.187.253": {
+		"num": 6,
+		"name": "Truk Anchorage",
+		"ip": "125.6.187.253"
+	},
+	"125.6.188.25": {
+		"num": 7,
+		"name": "Lingga Anchorage",
+		"ip": "125.6.188.25"
+	},
+	"203.104.248.135": {
+		"num": 8,
+		"name": "Rabaul Naval Base",
+		"ip": "203.104.248.135"
+	},
+	"125.6.189.7": {
+		"num": 9,
+		"name": "Shortland Anchorage",
+		"ip": "125.6.189.7"
+	},
+	"125.6.189.39": {
+		"num": 10,
+		"name": "Buin Naval Base",
+		"ip": "125.6.189.39"
+	},
+	"125.6.189.71": {
+		"num": 11,
+		"name": "Tawi-Tawi Anchorage",
+		"ip": "125.6.189.71"
+	},
+	"125.6.189.103": {
+		"num": 12,
+		"name": "Palau Anchorage",
+		"ip": "125.6.189.103"
+	},
+	"125.6.189.135": {
+		"num": 13,
+		"name": "Brunei Anchorage",
+		"ip": "125.6.189.135"
+	},
+	"125.6.189.167": {
+		"num": 14,
+		"name": "Hitokappu Bay Anchorage",
+		"ip": "125.6.189.167"
+	},
+	"125.6.189.215": {
+		"num": 15,
+		"name": "Paramushir Anchorage",
+		"ip": "125.6.189.215"
+	},
+	"125.6.189.247": {
+		"num": 16,
+		"name": "Sukumo Bay Anchorage",
+		"ip": "125.6.189.247"
+	},
+	"203.104.209.23": {
+		"num": 17,
+		"name": "Kanoya Airfield",
+		"ip": "203.104.209.23"
+	},
+	"203.104.209.39": {
+		"num": 18,
+		"name": "Iwagawa Airfield",
+		"ip": "203.104.209.39"
+	},
+	"203.104.209.55": {
+		"num": 19,
+		"name": "Saiki Bay Anchorage",
+		"ip": "203.104.209.55"
+	},
+	"203.104.209.102": {
+		"num": 20,
+		"name": "Hashirajima Anchorage",
+		"ip": "203.104.209.102"
+	}
+};
+var username = "neptunia";
+var server = "gey";
 
 function send_battle_data(x) {
 	try {
@@ -1598,18 +1704,41 @@ function send_battle_data(x) {
 		var node = data.api_data.api_no;
 		var nodename = node_data["World "+world+"-"+map][""+node][1];
 		// send
-		ws_send("Node "+world+"-"+map+" "+nodename,"none");
+		ws_send("Node "+world+"-"+map+" "+nodename,"none","none","none");
 	} catch (e) {
 		alert(e);
 	}
 }
+
+function get_rank_data(x) {
+	try {
+		//alert(x);
+		var pattern = '"api_.{12}":[0-9]*,"api_.{12}":"'+username+'"';
+		var re = new RegExp(pattern);
+		//alert(x.match(re));
+		var server_rank = x.match(re)[0];
+		server_rank = server_rank.split(",")[0].split(":")[1];
+		//alert("Rank "+server_rank+" on "+server);
+		ws_send("none","Rank "+server_rank+" on "+server.split(" ")[0],"none","none");
+	} catch (e) {
+		alert(e);
+	}
+}
+
 function send_home_data(x) {
 	//svdata.api_data.api_basic.api_level level
+	//svdata.api_data.api_basic.api_nickname username
+	//svdata.api_data.api_basic.api_rank rank
+	//svdata.api_data.api_deck_port[0].api_ship[0] flagship user's id
+
 	try {
 		var data = JSON.parse(/svdata=(.+)$/.exec(x)[1]);
 		var level = data.api_data.api_basic.api_level;
+		username = data.api_data.api_basic.api_nickname;
+		var rank = rank_data[data.api_data.api_basic.api_rank];
+
 		// send
-		ws_send("Home Port","HQ Level "+level);
+		ws_send("Home Port","none",username+" (HQ Level "+level+")",rank);
 	} catch (e) {
 		console.log(e);
 	}
@@ -1619,7 +1748,7 @@ function send_home_data(x) {
 function send_pvp_data() {
 	//svdata.api_data.api_basic.api_level level
 	try {
-		ws_send("Doing PVP","none");
+		ws_send("Doing PVP","none","none","none");
 	} catch (e) {
 		console.log(e);
 	}
@@ -1628,17 +1757,17 @@ function send_pvp_data() {
 
 function other_action() {
 	try {
-		ws_send("none","none");
+		ws_send("none","none","none","none");
 	} catch (e) {
 		console.log(e);
 	}
 
 }
 
-function ws_send(line1, line2) {
+function ws_send(info1, info2, largeicon, smallicon) {
 	var conn = new WebSocket("ws://127.0.0.1:1234");
 	conn.onopen = function(e) {
-	    conn.send(JSON.stringify({"top":line1+"", "bot":line2+""}));
+	    conn.send(JSON.stringify({"top":info1+"", "bot":info2+"", "large":largeicon+"", "small":smallicon+""}));
 	    conn.close();
 	};
 }
@@ -1646,6 +1775,7 @@ chrome.devtools.network.onRequestFinished.addListener(
 	function(request) {
 
 		if(request.request.url.indexOf("/kcsapi/") > -1){
+			server = servers[request.request.url.split("/")[2]]["name"]
 			if(request.request.url.indexOf("/kcsapi/api_port/port") > -1) {
 				//send "home port" and HQ level to nodejs 
 				request.getContent(send_home_data);
@@ -1657,6 +1787,9 @@ chrome.devtools.network.onRequestFinished.addListener(
 				// pvp
 				send_pvp_data();
 
+			} else if (request.request.url.indexOf("/kcsapi/api_req_ranking") > -1) {
+
+				request.getContent(get_rank_data);
 			} else {
 				// send that im not idle
 				other_action();

@@ -11,7 +11,7 @@ const ClientId = "391369077991538698";
 
 var ltext = "Kantai Collection"
 var details = "Home Port - Idle"
-var state = "HQ Level -100"
+var state = "check ranking"
 var lkey = "kc_logo_512x512"
 var last_time = 0
 var skey = "idle_img"
@@ -28,12 +28,18 @@ wss.on('connection', function connection(ws) {
     if (x["bot"] != "none") {
       state = x["bot"];
     }
+    if (x["large"] != "none") {
+      ltext = x["large"];
+    }
+    if (x["small"] != "none") {
+      stext = x["small"];
+    }
     
     console.log('received: %s', message);
     
     last_time = Date.now(); //get timestamp
     skey = "active_img";
-    stext = "Currently Playing!";
+    //stext = "Currently Playing!";
 
   });
 
