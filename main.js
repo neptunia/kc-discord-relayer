@@ -79,7 +79,7 @@ async function setActivity() {
   }
   count = (count+1)%state.length;
 
-  activity.state = activity.state.replace(":military_medal:","🎖 FCM 🎖: ");
+  activity.state = activity.state.replace(":military_medal:","First Class Medals: ");
 
   //check if idle
   //1000 = second
