@@ -10,8 +10,8 @@ const ClientId = "391369077991538698";
 
 
 var ltext = "Kantai Collection"
-var details = "Home Port - Idle"
-var state = ["check ranking"]
+var details = "Loading Integration..."
+var state = ["Check home port!"]
 var lkey = "kc_logo_512x512"
 var last_time = 0
 var skey = "idle_img"
@@ -71,6 +71,11 @@ async function setActivity() {
 
   if (state[count%state.length] != "none") {
     activity.state = state[count%state.length];   
+  } else{
+    while (state[count%state.length] == "none") {
+      count = (count+1)%state.length;
+    }
+    activity.state = state[count%state.length];
   }
   count = (count+1)%state.length;
 
