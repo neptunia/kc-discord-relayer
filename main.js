@@ -11,11 +11,12 @@ const ClientId = "391369077991538698";
 
 var ltext = "Kantai Collection"
 var details = "Home Port - Idle"
-var state = "check ranking"
+var state = ["check ranking"]
 var lkey = "kc_logo_512x512"
 var last_time = 0
 var skey = "idle_img"
 var stext = "Idle"
+var count = 0;
 
 
 wss.on('connection', function connection(ws) {
@@ -63,11 +64,17 @@ async function setActivity() {
     return;
   var activity = {
     details: details,
-    state: state,
     largeImageKey: lkey,
     largeImageText: ltext,
     instance: false
   }
+
+  if (state[count%state.length] != "none") {
+    activity.state = state[count%state.length];   
+  }
+  count = (count+1)%state.length;
+
+  activity.state = activity.state.replace(":military_medal:","🎖 FCM 🎖: ");
 
   //check if idle
   //1000 = second
