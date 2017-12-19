@@ -1693,9 +1693,46 @@ const servers = {
 		"ip": "203.104.209.102"
 	}
 };
-var username = "neptunia";
-var server = "gey";
 
+var username = "undefined";
+var server = "undefined server";
+var level = 0;
+var rank = "bad";
+var this_month_api_username = false;
+var this_month_api_rank = false;
+var show_username;
+
+function get_storage_uname() {
+	try {
+		chrome.storage.local.get(['show_username'], function(items) {
+			show_username = items['show_username'];
+		});
+	} catch (e) {
+		console.log(e);
+		show_username = true;
+	}
+	return show_username;
+}
+
+function get_storage_api() {
+	try {
+		chrome.storage.local.get(['api_username', 'api_rank'], function(items) {
+			this_month_api_username = items['api_username'];
+			this_month_api_rank = items['api_rank'];
+		});
+	} catch (e) {
+		console.log("api stuff not stored yet");
+	}
+	
+}
+get_storage_uname();
+get_storage_api();
+
+function real_log(x) {
+	chrome.devtools.inspectedWindow.eval('console.log(' + x + ');');
+}
+
+real_log("test");
 function send_battle_data(x) {
 	try {
 		var data = JSON.parse(/svdata=(.+)$/.exec(x)[1]);
@@ -1706,23 +1743,71 @@ function send_battle_data(x) {
 		// send
 		ws_send("Node "+world+"-"+map+" "+nodename,"none","none","none");
 	} catch (e) {
-		console.log(e);
+		real_log(e);
 	}
+}
+
+function parse_rank(x) {
+	// part 1: use regex
+	// part 2: hex encode everything then regex??? i dunno
 }
 
 function get_rank_data(x) {
 	try {
-		//alert(x);
-		var pattern = '"api_.{12}":[0-9]*,"api_.{12}":"'+username+'"';
-		var re = new RegExp(pattern);
-		//alert(x.match(re));
-		var server_rank = x.match(re)[0];
-		server_rank = server_rank.split(",")[0].split(":")[1];
-		//alert("Rank "+server_rank+" on "+server);
-		ws_send("none","Rank "+server_rank+" on "+server.split(" ")[0],"none","none");
+		//real_log(x);
+		// if username and server variables are already stored
+		// another way to get keys: 
+		get_storage_api();
+		if (this_month_api_username !== false && this_month_api_rank !== false) {
+			try {
+				// best case: stored value for api keys works
+				for (var i of data.api_data.api_list) {
+					if (i[this_month_api_username] == username) {
+						var server_rank = i[this_month_api_rank];
+						ws_send("none","Rank "+server_rank+" on "+server.split(" ")[0],"none","none");
+						return;
+					}
+				}
+			} catch (a) {
+				// if it doesn't work (outdated api keys)
+				real_log("hei");
+				var pattern = '"api_.{12}":[0-9]*,"api_.{12}":"'+username+'"';
+				var re = new RegExp(pattern);
+				//real_log(x.match(re));
+				var server_rank = x.match(re)[0];
+				this_month_api_rank = server_rank.split(",")[0].split(":")[0].replace('"','');
+				this_month_api_username = server_rank.split(",")[1].split(":")[0].replace('"','');
+				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
+				server_rank = server_rank.split(",")[0].split(":")[1];
+				ws_send("none","Rank "+server_rank+" on "+server.split(" ")[0],"none","none");
+				return;
+				
+			}
+			var data = JSON.parse(/svdata=(.+)$/.exec(x)[1]);
+		} else {
+			// not stored
+			try {
+				// try retrieving it
+				var pattern = '"api_.{12}":[0-9]*,"api_.{12}":"'+username+'"';
+				var re = new RegExp(pattern);
+				//real_log(x.match(re));
+				var server_rank = x.match(re)[0];
+				this_month_api_rank = server_rank.split(",")[0].split(":")[0].replace('"','');
+				this_month_api_username = server_rank.split(",")[1].split(":")[0].replace('"','');
+				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
+				server_rank = server_rank.split(",")[0].split(":")[1];
+				ws_send("none","Rank "+server_rank+" on "+server.split(" ")[0],"none","none");
+				return;
+			} catch (b) {
+				real_log(b);
+			}
+			
+		}
+		
+
 	} catch (e) {
-		console.log(e);
-		ws_send("none",server,"none","none");
+		//ws_send("none",server,"none","none");
+		real_log(e);
 	}
 }
 
@@ -1731,17 +1816,26 @@ function send_home_data(x) {
 	//svdata.api_data.api_basic.api_nickname username
 	//svdata.api_data.api_basic.api_rank rank
 	//svdata.api_data.api_deck_port[0].api_ship[0] flagship user's id
+	//svdata.api_data.api_basic.api_medals medals
 
 	try {
 		var data = JSON.parse(/svdata=(.+)$/.exec(x)[1]);
-		var level = data.api_data.api_basic.api_level;
+		level = data.api_data.api_basic.api_level;
 		username = data.api_data.api_basic.api_nickname;
-		var rank = rank_data[data.api_data.api_basic.api_rank];
+		rank = rank_data[data.api_data.api_basic.api_rank];
+		medals = data..api_data.api_basic.api_medals;
 
 		// send
-		ws_send("Home Port","none",username+" (HQ Level "+level+")",rank);
+		var part3;
+		if (get_storage_uname()) {
+			part3 = username+" (HQ Level "+level+")";
+		} else {
+			part3 = "HQ Level "+level;
+		}
+		ws_send("Home Port", "none", part3, rank);
+		
 	} catch (e) {
-		console.log(e);
+		real_log(e);
 	}
 
 }
@@ -1751,7 +1845,7 @@ function send_pvp_data() {
 	try {
 		ws_send("Doing PVP","none","none","none");
 	} catch (e) {
-		console.log(e);
+		real_log(e);
 	}
 
 }
@@ -1760,12 +1854,13 @@ function other_action() {
 	try {
 		ws_send("none","none","none","none");
 	} catch (e) {
-		console.log(e);
+		real_log(e);
 	}
 
 }
 
 function ws_send(info1, info2, largeicon, smallicon) {
+	real_log(JSON.stringify({"top":info1+"", "bot":info2+"", "large":largeicon+"", "small":smallicon+""}));
 	var conn = new WebSocket("ws://127.0.0.1:1234");
 	conn.onopen = function(e) {
 	    conn.send(JSON.stringify({"top":info1+"", "bot":info2+"", "large":largeicon+"", "small":smallicon+""}));
@@ -1776,7 +1871,12 @@ chrome.devtools.network.onRequestFinished.addListener(
 	function(request) {
 
 		if(request.request.url.indexOf("/kcsapi/") > -1){
-			server = servers[request.request.url.split("/")[2]]["name"]
+			try {
+				server = servers[request.request.url.split("/")[2]]["name"];
+			} catch (e) {
+				real_log(e);
+				server = "unknown server";
+			}
 			if(request.request.url.indexOf("/kcsapi/api_port/port") > -1) {
 				//send "home port" and HQ level to nodejs 
 				request.getContent(send_home_data);
