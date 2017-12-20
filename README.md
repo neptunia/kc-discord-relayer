@@ -7,7 +7,11 @@ Have you ever played Kancolle, then got depressed that Discord only showed a sad
 
 What it looks like:
 
-![new with rank](./img/with_rank.PNG)
+![default](./img/default_open.PNG)
+
+![custom home port text](./img/new_custom_text.PNG)
+
+![server rank](./img/rank.PNG)
 
 ### Old versions
 
@@ -33,6 +37,10 @@ What it looks like:
 * HQ level
 * Idle/Active indicator
 * Kancolle icon (very important!)
+* When in home port, you can customize the text. Defaults to `Headpatting <secretary>`, but you can change it.
+* Can show/hide TTK name
+	- Note: Settings changed via the extension (custom home port text, TTK name) need to be refreshed multiple times before they show up (i.e. Go to home port, go somewhere else, go back to home port.) I don't know why this occurs, it just does.
+* Medals earned
 * its actually useless tho and hard to set up
 	- although once its set up its pretty easy to use just `npm run start`
 
@@ -59,11 +67,6 @@ Note 2: I've looked into consolidating the whole program into a single chrome ex
 * `git pull`
 * To update the chrome extension, go to `chrome://extensions` and hit "reload extension"
 
-## TODO
-
-* change hover text on the large icon to `<admiral name> (HQ Level <level>)` DONE
-* replace bottom line to something else (maybe composition of current fleet) DONE
-
 ## Bugs
 
 * If you're using non-english locale retrieving rank may not work (due to \ being interpreted as they yen symbol I believe). plan to fix this soon (tm).
@@ -74,5 +77,4 @@ Feel free to add an issue or something if something broke/is bugged. Also I have
 
 ## thanks
 
-* Abukuмæме#8716 for finding bug :^)
-* kcdiscord for moral support :)
+* kcdiscord for moral support and finding bugs :)
