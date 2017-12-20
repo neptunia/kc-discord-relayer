@@ -33,6 +33,17 @@ function saveUsernameSetting(setting) {
   chrome.storage.local.set({"show_username":(setting=="true")});
 }
 
+function getHomeSetting(callback) {
+  chrome.storage.local.get("home_template", (items) => {
+    console.log(items["home_template"]);
+    callback(chrome.runtime.lastError ? null : items["home_template"]);
+  });
+}
+function saveHomeTemplate(setting) {
+  console.log(setting);
+  chrome.storage.local.set({"home_template":setting});
+}
+
 // This extension loads the saved background color for the current tab if one
 // exists. The user can select a new background color from the dropdown for the
 // current page, and it will be saved as part of the extension's isolated
@@ -44,6 +55,8 @@ function saveUsernameSetting(setting) {
 document.addEventListener('DOMContentLoaded', () => {
   
     var dropdown = document.getElementById('dropdown');
+    var homeTemp = document.getElementById("homeTemp");
+    var submitHome = document.getElementById("submitHome");
 
     // Load the saved background color for this page and modify the dropdown
     // value, if needed.
@@ -58,10 +71,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    getHomeSetting((sett) => {
+      if (sett) {
+        homeTemp.value = sett;
+      }
+    });
+
     // Ensure the background color is changed and saved when the dropdown
     // selection changes.
     dropdown.addEventListener('change', () => {
       saveUsernameSetting(dropdown.value);
+    });
+
+    submitHome.addEventListener('click', () => {
+      saveHomeTemplate(homeTemp.value);
     });
 
 });

@@ -1705,6 +1705,8 @@ var this_month_api_username = false;
 var this_month_api_rank = false;
 var show_username;
 var rank_str = "none";
+var home_str_template = "Headpatting <secretary>";
+var home_str = "Headpatting <secretary>";
 
 function get_storage_uname() {
 	try {
@@ -1729,6 +1731,19 @@ function get_storage_api() {
 	}
 	
 }
+
+function get_home_template() {
+	try {
+		chrome.storage.local.get(['home_template'], function(items) {
+			home_str_template = items['home_template'];
+		});
+	} catch (e) {
+		real_log(e);
+		console.log("template not stored yet");
+	}
+	
+}
+
 get_storage_uname();
 get_storage_api();
 
@@ -1831,14 +1846,16 @@ function send_home_data(x) {
 		username = data.api_data.api_basic.api_nickname;
 		rank = rank_data[data.api_data.api_basic.api_rank];
 		medals = data.api_data.api_basic.api_medals;
-		var home_str = "Home Port";
+		//var home_str = "Home Port";
 		try {
 			var sec_user_id = data.api_data.api_deck_port[0].api_ship[0];
 			real_log(sec_user_id);
 			for (var i of data.api_data.api_ship) {
 				//real_log(i);
 				if (i.api_id == sec_user_id) {
-					home_str = "Headpatting "+ship_ids[i.api_ship_id];
+					//home_str = "Headpatting "+ship_ids[i.api_ship_id];
+					get_home_template();
+					home_str = home_str_template.replace("<secretary>", ship_ids[i.api_ship_id]);
 					real_log(home_str);
 					break;
 				}
