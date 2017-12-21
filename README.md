@@ -51,6 +51,7 @@ What it looks like:
 	- https://nodejs.org/en/
 	- https://git-scm.com/downloads
 	- then go into `kc-discord-relayer` folder (where `package.json` is) and run `npm install`
+	- Note: You may get many warnings about uninstalled dependencies. These are optional dependencies for discord.js and can be ignored.
 3. change chrome to developer mode (chrome://extensions -> developer mode)
 4. Load unpacked extension...
 5. Navigate to this directory and click `extension_part`
