@@ -46,7 +46,7 @@ What it looks like:
 
 ## Usage/Installation
 
-1. Either download this repository as zip or git clone it (you'll need to install git either way)
+1. Either download this repository as zip or git clone it (you'll need to install git either way). If you download the zip, you'll need to unzip it. Either way, you should now have a folder called `kc-discord-relayer`.
 2. install nodejs, git, and dependencies
 	- https://nodejs.org/en/
 	- https://git-scm.com/downloads
