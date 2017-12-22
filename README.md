@@ -59,6 +59,8 @@ What it looks like:
 7. In the directory of main.js, run `npm run start`
 8. Hope it works :^)
 
+After installation, all you need to run is `npm run start` (in the directory). Make sure discord is already open before running this.
+
 Note: If you already have Kancolle or KC3Kai open, you may need to restart Kancolle. Make sure you close your devtools panel and reopen it.
 
 Note 2: I've looked into consolidating the whole program into a single chrome extension, but seems like it isn't possible to communicate with the discord rpc api without IPC (which can't be done in the browser) or websockets (which requires whitelisting of my app).
@@ -74,7 +76,7 @@ Note 2: I've looked into consolidating the whole program into a single chrome ex
 
 ## Contact
 
-Feel free to add an issue or something if something broke/is bugged. Also I have no idea if this will work if you use someone else's discord app. I don't actually know if all the stuff works. Also feel free to put requests and stuff.
+If you find bugs ping me on discord, @neptunia#7761. Or feel free to add an issue or something if something broke/is bugged. Also I have no idea if this will work if you use someone else's discord app. I don't actually know if all the stuff works. Also feel free to put requests and stuff.
 
 ## thanks
 
