@@ -50,13 +50,13 @@ What it looks like:
 2. install nodejs, git, and dependencies
 	- https://nodejs.org/en/
 	- https://git-scm.com/downloads
-	- then go into `kc-discord-relayer` folder (where `package.json` is) and run `npm install`
+	- Double click `firstrun.bat` (on windows). Alternatively go into `kc-discord-relayer` folder (where `package.json` is) and run `npm install`
 	- Note: You may get many warnings about uninstalled dependencies. These are optional dependencies for discord.js and can be ignored.
 3. change chrome to developer mode (chrome://extensions -> developer mode)
 4. Load unpacked extension...
 5. Navigate to this directory and click `extension_part`
 6. Open terminal/cmd.
-7. In the directory of main.js, run `npm run start`
+7. Run `run.bat` (on windows). Alternatively, in the directory of main.js, run `npm run start`
 8. Hope it works :^)
 
 After installation, all you need to run is `npm run start` (in the directory). Make sure discord is already open before running this.
