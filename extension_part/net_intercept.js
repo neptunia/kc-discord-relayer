@@ -1977,7 +1977,7 @@ const ship_ids = {
   "175": "Z3",
   "176": "Prinz Eugen",
   "177": "Prinz Eugen",
-  "178": "Bismarck Drei",
+  "178": "Bismarck",
   "179": "Z1",
   "180": "Z3",
   "181": "Amatsukaze",
@@ -1997,6 +1997,7 @@ const ship_ids = {
   "195": "Ayanami",
   "196": "Hiryuu",
   "197": "Souryuu",
+  "198": "Arare",
   "199": "Ooshio",
   "200": "Abukuma",
   "201": "Fubuki",
@@ -2314,12 +2315,21 @@ const ship_ids = {
   "551": "Hiburi",
   "552": "Daitou",
   "555": "Zuihou",
+  "556": "Urakaze",
+  "557": "Isokaze",
+  "558": "Hamakaze",
   "560": "Zuihou",
+  "561": "Samuel B.Roberts",
+  "565": "Fukae",
+  "566": "Kagerou",
+  "567": "Shiranui",
   "605": "Luigi Torelli",
   "606": "I-400",
   "678": "Hiburi",
   "679": "Daitou",
-  "680": "Hamanami"
+  "680": "Hamanami",
+  "681": "Samuel B.Roberts",
+  "685": "Fukae"
 };
 
 const rank_data = ["geydog", "Marshal Admiral", "Admiral", "Vice-Admiral", "Rear-Admiral", "Captain", "Commander", "Commander (Novice)", "Lieutenant-Commander", "Vice Lieutenant-Commander", "Lieutenant-Commander (Novice)"];
