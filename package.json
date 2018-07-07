@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "discord-rpc": "github:devsnek/discord-rpc",
-    "ws": "^3.3.2"
+    "ws": "^3.3.2",
+    "discord.js": "^11.0.0"
   },
   "author": "neptunia",
   "license": "ISC"
