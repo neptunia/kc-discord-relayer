@@ -22,7 +22,7 @@ var count = 0;
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     var x = JSON.parse(message);
-    //console.log(x);
+    console.log(x);
     if (x["top"] != "none") {
       details = x["top"];
     }
@@ -36,7 +36,9 @@ wss.on('connection', function connection(ws) {
       stext = x["small"];
     }
     
-    console.log('received: %s', message);
+    if (process.argv.indexOf("-v") > -1) {
+      console.log('received: %s', message);
+    }
     
     last_time = Date.now(); //get timestamp
     skey = "active_img";
