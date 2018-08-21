@@ -2641,7 +2641,7 @@ function send_battle_data(x) {
 		var node = data.api_data.api_no;
 		var nodename = node_data["World "+world+"-"+map][""+node][1];
 		// send
-		if (parseInt(world) > 6) {
+		if (parseInt(world) > 7) {
 			world = "E";
 		}
 		ws_send("Node "+world+"-"+map+" "+nodename,"none","none","none");
