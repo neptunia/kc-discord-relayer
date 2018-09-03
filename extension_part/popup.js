@@ -18,6 +18,28 @@ function getUsernameSetting(callback) {
   });
 }
 
+function getAkashiSetting(callback) {
+  // See https://developer.chrome.com/apps/storage#type-StorageArea. We check
+  // for chrome.runtime.lastError to ensure correctness even when the API call
+  // fails.
+  chrome.storage.local.get("headpat_akashi", (items) => {
+    console.log(items);
+    console.log(items["headpat_akashi"]);
+    callback(chrome.runtime.lastError ? null : items["headpat_akashi"]);
+  });
+}
+
+function getFCMedalsSetting(callback) {
+  // See https://developer.chrome.com/apps/storage#type-StorageArea. We check
+  // for chrome.runtime.lastError to ensure correctness even when the API call
+  // fails.
+  chrome.storage.local.get("show_FCmedals", (items) => {
+    console.log(items);
+    console.log(items["show_FCmedals"]);
+    callback(chrome.runtime.lastError ? null : items["show_FCmedals"]);
+  });
+}
+
 /**
  * Sets the given background color for url.
  *
@@ -31,6 +53,17 @@ function saveUsernameSetting(setting) {
   console.log(setting);
   console.log(setting=="true");
   chrome.storage.local.set({"show_username":(setting=="true")});
+}
+
+function saveAkashiSetting(setting) {
+  console.log(setting);
+  console.log(setting=="true");
+  chrome.storage.local.set({"headpat_akashi":(setting=="true")});
+}
+function saveFCMedalsSetting(setting) {
+  console.log(setting);
+  console.log(setting=="true");
+  chrome.storage.local.set({"show_FCmedals":(setting=="true")});
 }
 
 function getHomeSetting(callback) {
@@ -55,6 +88,8 @@ function saveHomeTemplate(setting) {
 document.addEventListener('DOMContentLoaded', () => {
   
     var dropdown = document.getElementById('dropdown');
+    var dropdownAkashi = document.getElementById('dropdownAkashi');
+    var dropdownFCMedals = document.getElementById('dropdownFCMedals');
     var homeTemp = document.getElementById("homeTemp");
     var submitHome = document.getElementById("submitHome");
 
@@ -71,6 +106,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    getAkashiSetting((sett) => {
+      if (sett==true || sett==false) {
+        console.log(sett);
+        if (sett) {
+            dropdownAkashi.value = "true";
+        } else {
+            dropdownAkashi.value = "false";
+        }
+      }
+    });
+
+    getFCMedalsSetting((sett) => {
+      if (sett==true || sett==false) {
+        console.log(sett);
+        if (sett) {
+            dropdownFCMedals.value = "true";
+        } else {
+            dropdownFCMedals.value = "false";
+        }
+      }
+    });
+
     getHomeSetting((sett) => {
       if (sett) {
         homeTemp.value = sett;
@@ -81,6 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // selection changes.
     dropdown.addEventListener('change', () => {
       saveUsernameSetting(dropdown.value);
+    });
+
+    dropdownAkashi.addEventListener('change', () => {
+        saveAkashiSetting(dropdownAkashi.value);
+    });
+
+    dropdownFCMedals.addEventListener('change', () => {
+        saveFCMedalsSetting(dropdownFCMedals.value);
     });
 
     submitHome.addEventListener('click', () => {
