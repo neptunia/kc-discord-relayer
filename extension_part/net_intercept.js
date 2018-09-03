@@ -2697,7 +2697,8 @@ function get_rank_data(x) {
 					if (i[this_month_api_username] == username) {
 						var server_rank = i[this_month_api_rank];
                         rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-                        ws_send("none",[rank_str],"none","none");
+                        if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
+                        else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
 						return;
 					}
 				}
@@ -2713,7 +2714,8 @@ function get_rank_data(x) {
 				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
 				server_rank = server_rank.split(",")[0].split(":")[1];
                 rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-                ws_send("none",[rank_str],"none","none");
+                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
+                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
 				return;
 				
 			}
@@ -2731,7 +2733,8 @@ function get_rank_data(x) {
 				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
 				server_rank = server_rank.split(",")[0].split(":")[1];
                 rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-                ws_send("none",[rank_str],"none","none");
+                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
+                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
 				return;
 			} catch (b) {
 				real_log("an error occurred!");
@@ -2788,7 +2791,8 @@ function send_home_data(x) {
 		} else {
 			part3 = "HQ Level "+level;
 		}
-		ws_send(home_str, [rank_str], part3, rank);
+        if(!get_storage_show_medals()) ws_send(home_str, [rank_str], part3, rank);
+        else ws_send(home_str, [":military_medal: "+medals, rank_str], part3, rank);
 		
 	} catch (e) {
 		real_log("an error occurred!");
