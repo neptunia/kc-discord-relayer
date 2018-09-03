@@ -81,3 +81,4 @@ If you find bugs ping me on discord, @neptunia#7761. Or feel free to add an issu
 ## thanks
 
 * kcdiscord for moral support and finding bugs :)
+* jebzou (and other contribs in future)
