@@ -11,7 +11,7 @@ const ClientId = "391369077991538698";
 
 var ltext = "Kantai Collection"
 var details = "Loading Integration..."
-var state = ["Check home port!"]
+var state = ["Rank data not loaded"]
 var lkey = "kc_logo_512x512"
 var last_time = 0
 var skey = "idle_img"

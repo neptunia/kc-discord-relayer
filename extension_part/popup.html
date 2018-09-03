@@ -18,6 +18,12 @@
         display: flex;
         justify-content: space-between;
       }
+
+      .container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
     </style>
   </head>
   <body>
@@ -25,6 +31,22 @@
     <div id="container">
       <span>Show Username&nbsp;&nbsp;</span>
       <select id="dropdown">
+    	<option selected disabled hidden value=''></option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <div id="containerAkashi" class="container">
+      <span>Headpat Akashi too ?&nbsp;&nbsp;</span>
+      <select id="dropdownAkashi">
+    	<option selected disabled hidden value=''></option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <div id="containerFCMedals" class="container">
+      <span>Show number of First Class Medals ?&nbsp;&nbsp;</span>
+      <select id="dropdownFCMedals">
     	<option selected disabled hidden value=''></option>
         <option value="true">Yes</option>
         <option value="false">No</option>

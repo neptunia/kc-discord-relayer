@@ -2379,6 +2379,7 @@ const ship_ids = {
   "474": "Matsukaze",
   "475": "Hatakaze",
   "476": "Kamikaze",
+  "477": "Tenryuu",
   "478": "Tatsuta",
   "479": "Amagiri",
   "480": "Sagiri",
@@ -2397,6 +2398,7 @@ const ship_ids = {
   "494": "I-13",
   "495": "I-14",
   "496": "Zara",
+  "497": "Shiratsuyu",
   "498": "Murasame",
   "499": "Kamoi",
   "500": "Kamoi",
@@ -2425,6 +2427,7 @@ const ship_ids = {
   "539": "UIT-25",
   "540": "Tsushima",
   "541": "Nagato",
+  "542": "Yuugumo",
   "543": "Naganami",
   "544": "Gambier Bay",
   "545": "Saratoga",
@@ -2435,6 +2438,7 @@ const ship_ids = {
   "550": "Saratoga",
   "551": "Hiburi",
   "552": "Daitou",
+  "553": "Ise",
   "555": "Zuihou",
   "556": "Urakaze",
   "557": "Isokaze",
@@ -2444,6 +2448,7 @@ const ship_ids = {
   "565": "Fukae",
   "566": "Kagerou",
   "567": "Shiranui",
+  "568": "Kuroshio",
   "605": "Luigi Torelli",
   "606": "I-400",
   "678": "Hiburi",
@@ -2585,6 +2590,8 @@ var rank = "none";
 var this_month_api_username = false;
 var this_month_api_rank = false;
 var show_username;
+var show_epeen;
+var headpatForAkashi;
 var rank_str = "none";
 var home_str_template = "Headpatting <secretary>";
 var home_str = "Headpatting <secretary>";
@@ -2600,6 +2607,32 @@ function get_storage_uname() {
 	}
 	return show_username;
 }
+
+function get_storage_akashi() {
+	try {
+		chrome.storage.local.get(['headpat_akashi'], function(items) {
+			headpatForAkashi = items['headpat_akashi'];
+		});
+	} catch (e) {
+		console.log(e);
+		headpatForAkashi = true;
+	}
+	return headpatForAkashi;
+}
+
+function get_storage_show_medals() {
+	try {
+		chrome.storage.local.get(['show_FCmedals'], function(items) {
+			show_epeen = items['show_FCmedals'];
+		});
+	} catch (e) {
+		console.log(e);
+		show_epeen = true;
+	}
+	return show_epeen;
+}
+
+
 
 function get_storage_api() {
 	try {
@@ -2657,7 +2690,7 @@ function parse_rank(x) {
 
 function get_rank_data(x) {
 	try {
-		//real_log(x);
+		//console.log(x);
 		// if username and server variables are already stored
 		// another way to get keys: 
 		get_storage_api();
@@ -2667,8 +2700,9 @@ function get_rank_data(x) {
 				for (var i of data.api_data.api_list) {
 					if (i[this_month_api_username] == username) {
 						var server_rank = i[this_month_api_rank];
-						rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-						ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
+                        rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
+                        if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
+                        else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
 						return;
 					}
 				}
@@ -2683,8 +2717,9 @@ function get_rank_data(x) {
 				this_month_api_username = server_rank.split(",")[1].split(":")[0].replace('"','');
 				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
 				server_rank = server_rank.split(",")[0].split(":")[1];
-				rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-				ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
+                rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
+                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
+                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
 				return;
 				
 			}
@@ -2701,8 +2736,9 @@ function get_rank_data(x) {
 				this_month_api_username = server_rank.split(",")[1].split(":")[0].replace('"','');
 				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
 				server_rank = server_rank.split(",")[0].split(":")[1];
-				rank_str = "Rank "+server_rank+" on "+server.split(" ")[0]
-				ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
+                rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
+                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
+                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
 				return;
 			} catch (b) {
 				real_log("an error occurred!");
@@ -2740,7 +2776,8 @@ function send_home_data(x) {
 				if (i.api_id == sec_user_id) {
 					//home_str = "Headpatting "+ship_ids[i.api_ship_id];
 					get_home_template();
-					home_str = home_str_template.replace("<secretary>", ship_ids[i.api_ship_id]);
+                    if ((i.api_ship_id == 182 || i.api_ship_id == 187) && !get_storage_akashi()) home_str = "Akashi is repairing ships";
+                    else home_str = home_str_template.replace("<secretary>", ship_ids[i.api_ship_id]);
 					real_log(home_str);
 					break;
 				}
@@ -2758,7 +2795,8 @@ function send_home_data(x) {
 		} else {
 			part3 = "HQ Level "+level;
 		}
-		ws_send(home_str, [":military_medal: "+medals, rank_str], part3, rank);
+        if(!get_storage_show_medals()) ws_send(home_str, [rank_str], part3, rank);
+        else ws_send(home_str, [":military_medal: "+medals, rank_str], part3, rank);
 		
 	} catch (e) {
 		real_log("an error occurred!");
