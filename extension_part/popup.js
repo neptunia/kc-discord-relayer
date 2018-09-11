@@ -29,6 +29,17 @@ function getAkashiSetting(callback) {
   });
 }
 
+function getTimeElapsedSetting(callback) {
+  // See https://developer.chrome.com/apps/storage#type-StorageArea. We check
+  // for chrome.runtime.lastError to ensure correctness even when the API call
+  // fails.
+  chrome.storage.local.get("show_time_elapsed", (items) => {
+    console.log(items);
+    console.log(items["show_time_elapsed"]);
+    callback(chrome.runtime.lastError ? null : items["show_time_elapsed"]);
+  });
+}
+
 function getFCMedalsSetting(callback) {
   // See https://developer.chrome.com/apps/storage#type-StorageArea. We check
   // for chrome.runtime.lastError to ensure correctness even when the API call
@@ -60,6 +71,13 @@ function saveAkashiSetting(setting) {
   console.log(setting=="true");
   chrome.storage.local.set({"headpat_akashi":(setting=="true")});
 }
+
+function saveTimeElapsedSetting(setting) {
+  console.log(setting);
+  console.log(setting=="true");
+  chrome.storage.local.set({"show_time_elapsed":(setting=="true")});
+}
+
 function saveFCMedalsSetting(setting) {
   console.log(setting);
   console.log(setting=="true");
@@ -92,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var dropdownFCMedals = document.getElementById('dropdownFCMedals');
     var homeTemp = document.getElementById("homeTemp");
     var submitHome = document.getElementById("submitHome");
+    var dropdownTimeElapsed = document.getElementById('dropdownTimeElapsed');
 
     // Load the saved background color for this page and modify the dropdown
     // value, if needed.
@@ -128,6 +147,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    getTimeElapsedSetting((sett) => {
+      if (sett==true || sett==false) {
+        console.log(sett);
+        if (sett) {
+            dropdownTimeElapsed.value = "true";
+        } else {
+            dropdownTimeElapsed.value = "false";
+        }
+      }
+    });
+
     getHomeSetting((sett) => {
       if (sett) {
         homeTemp.value = sett;
@@ -146,6 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dropdownFCMedals.addEventListener('change', () => {
         saveFCMedalsSetting(dropdownFCMedals.value);
+    });
+
+    dropdownTimeElapsed.addEventListener('change', () => {
+        saveTimeElapsedSetting(dropdownTimeElapsed.value);
     });
 
     submitHome.addEventListener('click', () => {

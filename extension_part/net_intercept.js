@@ -2664,6 +2664,7 @@ var this_month_api_rank = false;
 var show_username;
 var show_epeen;
 var headpatForAkashi;
+var show_time_elapsed;
 var rank_str = "none";
 var home_str_template = "Headpatting <secretary>";
 var home_str = "Headpatting <secretary>";
@@ -2691,6 +2692,19 @@ function get_storage_akashi() {
 	}
 	return headpatForAkashi;
 }
+
+function get_storage_elapsed() {
+	try {
+		chrome.storage.local.get(['show_time_elapsed'], function(items) {
+			show_time_elapsed = items['show_time_elapsed'];
+		});
+	} catch (e) {
+		console.log(e);
+		show_time_elapsed = true;
+	}
+	return show_time_elapsed;
+}
+
 
 function get_storage_show_medals() {
 	try {
@@ -2740,6 +2754,7 @@ function real_log(x) {
 //real_log("test");
 function send_battle_data(x) {
 	try {
+		// battle: send start timestamp
 		var data = JSON.parse(/svdata=(.+)$/.exec(x)[1]);
 		var world = data.api_data.api_maparea_id;
 		var map = data.api_data.api_mapinfo_no;
@@ -2749,7 +2764,12 @@ function send_battle_data(x) {
 		if (parseInt(world) > 7) {
 			world = "E";
 		}
-		ws_send("Node "+world+"-"+map+" "+nodename,"none","none","none");
+		if (get_storage_elapsed()) {
+			ws_send("Node "+world+"-"+map+" "+nodename,"none","none","none",Date.now());
+		} else {
+			ws_send("Node "+world+"-"+map+" "+nodename,"none","none","none","none");
+		}
+		
 	} catch (e) {
 		real_log(e);
 	}
@@ -2773,8 +2793,8 @@ function get_rank_data(x) {
 					if (i[this_month_api_username] == username) {
 						var server_rank = i[this_month_api_rank];
                         rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-                        if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
-                        else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
+                        if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none","none");
+                        else ws_send("none",[":military_medal: "+medals, rank_str],"none","none","none");
 						return;
 					}
 				}
@@ -2790,8 +2810,8 @@ function get_rank_data(x) {
 				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
 				server_rank = server_rank.split(",")[0].split(":")[1];
                 rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
-                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
+                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none","none");
+                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none","none");
 				return;
 				
 			}
@@ -2809,8 +2829,8 @@ function get_rank_data(x) {
 				chrome.storage.local.set({"api_username":this_month_api_username, "api_rank":this_month_api_rank});
 				server_rank = server_rank.split(",")[0].split(":")[1];
                 rank_str = "Rank "+server_rank+" on "+server.split(" ")[0];
-                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none");
-                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none");
+                if(!get_storage_show_medals()) ws_send("none",[rank_str],"none","none","none");
+                else ws_send("none",[":military_medal: "+medals, rank_str],"none","none","none");
 				return;
 			} catch (b) {
 				real_log("an error occurred!");
@@ -2867,8 +2887,8 @@ function send_home_data(x) {
 		} else {
 			part3 = "HQ Level "+level;
 		}
-        if(!get_storage_show_medals()) ws_send(home_str, [rank_str], part3, rank);
-        else ws_send(home_str, [":military_medal: "+medals, rank_str], part3, rank);
+        if(!get_storage_show_medals()) ws_send(home_str, [rank_str], part3, rank,"-1");
+        else ws_send(home_str, [":military_medal: "+medals, rank_str], part3, rank,"-1");
 		
 	} catch (e) {
 		real_log("an error occurred!");
@@ -2880,7 +2900,11 @@ function send_home_data(x) {
 function send_pvp_data() {
 	//svdata.api_data.api_basic.api_level level
 	try {
-		ws_send("Doing PVP","none","none","none");
+		// battle: send start timestamp
+		if (get_storage_elapsed()) {
+			ws_send("Doing PVP","none","none","none",Date.now());
+		}
+		ws_send("Doing PVP","none","none","none","none");
 	} catch (e) {
 		real_log("an error occurred!");
 		real_log(e);
@@ -2890,7 +2914,7 @@ function send_pvp_data() {
 
 function other_action() {
 	try {
-		ws_send("none","none","none","none");
+		ws_send("none","none","none","none","none");
 	} catch (e) {
 		real_log("an error occurred!");
 		real_log(e);
@@ -2898,11 +2922,11 @@ function other_action() {
 
 }
 
-function ws_send(info1, info2, largeicon, smallicon) {
+function ws_send(info1, info2, largeicon, smallicon, timestamp) {
 	//real_log(JSON.stringify({"top":info1+"", "bot":info2, "large":largeicon+"", "small":smallicon+""}));
 	var conn = new WebSocket("ws://127.0.0.1:1234");
 	conn.onopen = function(e) {
-	    conn.send(JSON.stringify({"top":info1+"", "bot":info2, "large":largeicon+"", "small":smallicon+""}));
+	    conn.send(JSON.stringify({"top":info1+"", "bot":info2, "large":largeicon+"", "small":smallicon+"", "timestamp":timestamp+""}));
 	    conn.close();
 	};
 }

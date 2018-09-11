@@ -16,6 +16,7 @@ var lkey = "kc_logo_512x512"
 var last_time = 0
 var skey = "idle_img"
 var stext = "Idle"
+var ts = -1;
 var count = 0;
 
 
@@ -35,7 +36,16 @@ wss.on('connection', function connection(ws) {
     if (x["small"] != "none") {
       stext = x["small"];
     }
-    
+
+    if (x["timestamp"] != "none") {
+      if (parseInt(x["timestamp"]) > 0) {
+        ts = parseInt(x["timestamp"]);
+      } else {
+        ts = -1;
+      }      
+    }
+
+
     if (process.argv.indexOf("-v") > -1) {
       console.log('received: %s', message);
     }
@@ -94,10 +104,14 @@ async function setActivity() {
     stext = "Idle for " + Math.floor(elapsed/60000) + " minutes";
   }
 
+  if (ts > 0) {
+    // i dont know why i have to divide by 1000, but i do otherwise it sends in milliseconds or something
+    activity.startTimestamp = ts/1000.0;
+  }
+
   activity.smallImageKey = skey;
   activity.smallImageText = stext;
 
-  //console.log("gey");
 
   rpc.setActivity(activity);
 }
