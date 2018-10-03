@@ -16,6 +16,7 @@ What it looks like:
 ![bubble](https://i.imgur.com/M2xPsZM.png)
 
 ![can also display rank](https://i.imgur.com/yELeXYQ.png)
+
 Note: displaying rank can be toggled, and will only show up after you have already checked your rank.
 
 ### Old versions
