@@ -17,6 +17,8 @@ What it looks like:
 
 ![can also display rank](https://i.imgur.com/yELeXYQ.png)
 
+![settings](https://i.imgur.com/hhW74BK.png)
+
 Note: displaying rank can be toggled, and will only show up after you have already checked your rank.
 
 ### Old versions
@@ -38,7 +40,8 @@ Note: displaying rank can be toggled, and will only show up after you have alrea
 ## Features
 
 * What map/node you're playing on (if any)
-* Rank/Server (you need to check the ranking page though) (Currently either does not work on non-english locales or there is some other spooky bug causing issues)
+* Time spent on a node
+* Rank/Server (you need to check the ranking page though)
 * Whether you're in PVP or not
 * HQ level
 * Idle/Active indicator
@@ -76,6 +79,7 @@ Note 2: I've looked into consolidating the whole program into a single chrome ex
 
 * `git pull`
 * To update the chrome extension, go to `chrome://extensions` and hit "reload extension"
+* Note: this tool gets updated fairly often, usually within a few days after a new ship / remodel / event is released. If not, feel free to contact me or submit a PR.
 
 ## Bugs
 
