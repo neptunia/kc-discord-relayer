@@ -41,6 +41,7 @@ Note: displaying rank can be toggled, and will only show up after you have alrea
 
 * What map/node you're playing on (if any)
 * Time spent on a node
+	- Note: there is apparently a discord bug that time elapsed for you may show up wildly incorrect. Do not worry, it shows up on others' computers just fine. Apparently you do not receive rich presence time updates for yourself or something in the Discord API.
 * Rank/Server (you need to check the ranking page though)
 * Whether you're in PVP or not
 * HQ level
