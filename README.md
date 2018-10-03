@@ -72,7 +72,7 @@ Note 2: I've looked into consolidating the whole program into a single chrome ex
 
 ## Bugs
 
-* If you're using non-english locale retrieving rank may not work (due to \ being interpreted as they yen symbol I believe). plan to fix this soon (tm).
+* (fixed i think) If you're using non-english locale retrieving rank may not work (due to \ being interpreted as they yen symbol I believe). plan to fix this soon (tm).
 
 ## Contact
 
