@@ -13,6 +13,11 @@ What it looks like:
 
 ![server rank](./img/rank.PNG)
 
+![bubble](https://i.imgur.com/M2xPsZM.png)
+
+![can also display rank](https://i.imgur.com/yELeXYQ.png)
+Note: displaying rank can be toggled, and will only show up after you have already checked your rank.
+
 ### Old versions
 
 ![node 1-1a](./img/battle.PNG)
@@ -38,6 +43,7 @@ What it looks like:
 * Idle/Active indicator
 * Kancolle icon (very important!)
 * When in home port, you can customize the text. Defaults to `Headpatting <secretary>`, but you can change it.
+	- Can also change text for Akashi flagship
 * Can show/hide TTK name
 	- Note: Settings changed via the extension (custom home port text, TTK name) need to be refreshed multiple times before they show up (i.e. Go to home port, go somewhere else, go back to home port.) I don't know why this occurs, it just does.
 * Medals earned
