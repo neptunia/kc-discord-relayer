@@ -2757,23 +2757,23 @@ const servers = {
 		"jp": "呉鎮守府",
 		"ip": "203.104.209.87"
 	},
-	"125.6.184.16": {
+	"125.6.184.215": {
 		"num": 3,
 		"name": "Sasebo Naval District",
 		"jp": "佐世保鎮守府",
-		"ip": "125.6.184.16"
+		"ip": "125.6.184.215"
 	},
-	"125.6.187.205": {
+	"203.104.209.183": {
 		"num": 4,
 		"name": "Maizuru Naval District",
 		"jp": "舞鶴鎮守府",
-		"ip": "125.6.187.205"
+		"ip": "203.104.209.183"
 	},
-	"125.6.187.229": {
+	"203.104.209.150": {
 		"num": 5,
 		"name": "Ominato Guard District",
 		"jp": "大湊警備府",
-		"ip": "125.6.187.229"
+		"ip": "203.104.209.150"
 	},
 	"203.104.209.134": {
 		"num": 6,
@@ -2787,11 +2787,11 @@ const servers = {
 		"jp": "リンガ泊地",
 		"ip": "203.104.209.167"
 	},
-	"203.104.248.135": {
+	"203.104.209.199": {
 		"num": 8,
 		"name": "Rabaul Naval Base",
 		"jp": "ラバウル基地",
-		"ip": "203.104.248.135"
+		"ip": "203.104.209.199"
 	},
 	"125.6.189.7": {
 		"num": 9,
@@ -3083,6 +3083,7 @@ function send_home_data(x) {
 					get_home_template();
                     if ((i.api_ship_id == 182 || i.api_ship_id == 187) && !get_storage_akashi()) home_str = "Akashi is repairing ships";
                     else home_str = home_str_template.replace("<secretary>", ship_ids[i.api_ship_id]);
+                    console.log(home_str);
 					real_log(home_str);
 					break;
 				}
