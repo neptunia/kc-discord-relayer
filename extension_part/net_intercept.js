@@ -1,5 +1,5 @@
-const node_data = {};
-const ship_ids = {}; 
+var node_data = {};
+var ship_ids = {}; 
 
 var xmlhttpship = new XMLHttpRequest();
 xmlhttpship.onreadystatechange = function() {
@@ -363,6 +363,7 @@ function send_home_data(x) {
 					get_home_template();
                     if ((i.api_ship_id == 182 || i.api_ship_id == 187) && !get_storage_akashi()) home_str = "Akashi is repairing ships";
                     else home_str = home_str_template.replace("<secretary>", ship_ids[i.api_ship_id]);
+                    console.log(home_str);
 					real_log(home_str);
 					break;
 				}
