@@ -1,5 +1,5 @@
-const node_data = {};
-const ship_ids = {}; 
+var node_data = {};
+var ship_ids = {}; 
 
 var xmlhttpship = new XMLHttpRequest();
 xmlhttpship.onreadystatechange = function() {
@@ -371,7 +371,6 @@ function send_home_data(x) {
 			real_log("an error occurred!");
 			real_log(f);
 		}
-
 
 		// send
 		var part3;
