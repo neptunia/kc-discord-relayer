@@ -56,6 +56,8 @@ Note: displaying rank can be toggled, and will only show up after you have alrea
 * Medals earned
 * its actually useless tho and hard to set up
 	- although once its set up its pretty easy to use just `npm run start`
+	
+* Built in plugin for [ElectronicObserver](https://github.com/gre4bee/ElectronicObserver) (ported by Jebzou)
 
 ## Usage/Installation
 
