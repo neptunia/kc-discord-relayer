@@ -5,6 +5,8 @@ Have you ever played Kancolle, then got depressed that Discord only showed a sad
 
 # Rich Presence Integration for Kancolle!
 
+## note: Jebzou's fork is probably more up-to-date (https://github.com/Jebzou/kc-discord-relayer)
+
 What it looks like:
 
 ![default](./img/default_open.PNG)
